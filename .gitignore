@@ -44,3 +44,4 @@ docs/www/img/
 # git update-index --no-assume-unchanged .\docs\manual.dat
 docs/manual.dat
 vs2022-clang/
+/.vs
