@@ -64,7 +64,10 @@ constexpr int kInnerPadding = 8;
 constexpr const char* kSumatraTxtFont = "Arial Black";
 constexpr int kSumatraTxtFontSize = 24;
 
-constexpr const char* kVersionTxtFont = "Arial Black";
+// begin{hamadajuku}
+//constexpr const char* kVersionTxtFont = "Arial Black";
+constexpr const char* kVersionTxtFont = "Meiryo UI";
+// end{hamadajuku}
 constexpr int kVersionTxtFontSize = 12;
 
 #ifdef PRE_RELEASE_VER

@@ -222,6 +222,14 @@ static TempStr FormatPageSizeTemp(EngineBase* engine, int pageNo, int rotation) 
         case PaperFormat::A6:
             formatName = " (A6)";
             break;
+        // begin{hamadajuku}
+        case PaperFormat::B5:
+            formatName = " (B5)";
+            break;
+        case PaperFormat::B4:
+            formatName = " (B4)";
+            break;
+        // end{hamadajuku}
         case PaperFormat::Letter:
             formatName = " (Letter)";
             break;

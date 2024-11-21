@@ -5,9 +5,16 @@
 
 struct MainWindow;
 
-constexpr const char* kLeftTextFont = "Arial";
+// begin{hamadajuku}
+//constexpr const char* kLeftTextFont = "Arial";
+constexpr const char* kLeftTextFont = "Meiryo UI";
+// end{hamadajuku}
 constexpr int kLeftTextFontSize = 14;
-constexpr const char* kRightTextFont = "Arial Black";
+
+// begin{hamadajuku}
+//constexpr const char* kRightTextFont = "Arial Black";
+constexpr const char* kRightTextFont = "Meiryo UI";
+// end{hamadajuku}
 constexpr int kRightTextFontSize = 14;
 
 void ShowAboutWindow(MainWindow*);

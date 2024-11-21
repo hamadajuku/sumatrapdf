@@ -734,6 +734,10 @@ static HGLOBAL GlobalMemDup(const void* data, size_t len) {
     return hGlobal;
 }
 
+// begin{hamadajuku}
+static short DetectPrinterPaperSize(EngineBase* engine, Printer* printer);
+// end{hamadajuku}
+
 /* Show Print Dialog box to allow user to select the printer
 and the pages to print.
 
@@ -842,6 +846,35 @@ void PrintCurrentFile(MainWindow* win, bool waitForCompletion) {
     pdex.nMinPage = 1;
     pdex.nMaxPage = nPages;
     pdex.nStartPage = START_PAGE_GENERAL;
+
+    // begin{hamadajuku}
+    char* defName = GetDefaultPrinterNameTemp();
+    if (defName) {
+        printer = NewPrinter(defName);
+        {
+            DEVMODEW* pdm = printer->devMode;
+            // 用紙の向きの判定
+            RectF mbox = engine->PageMediabox(1);
+            SizeF size = mbox.Size();
+            pdm->dmOrientation = (size.dy > size.dx) ? DMORIENT_PORTRAIT : DMORIENT_LANDSCAPE;
+            pdm->dmFields |= DM_ORIENTATION;
+            // 用紙サイズの判定
+            pdm->dmPaperSize = DetectPrinterPaperSize(engine, printer);
+            if (pdm->dmPaperSize) {
+                // 定義済みのサイズがあった時
+                pdm->dmFields |= DM_PAPERSIZE;
+            } else {
+                // 定義済みのサイズがなかった時はユーザー定義サイズにする
+                size = engine->Transform(mbox, 1, 254.0f / engine->GetFileDPI(), 0).Size();
+                pdm->dmPaperSize = 0;
+                pdm->dmPaperWidth = size.dx;
+                pdm->dmPaperLength = size.dy;
+                pdm->dmFields |= DM_PAPERSIZE | DM_PAPERWIDTH | DM_PAPERLENGTH;
+            }
+            pdex.hDevMode = pdm;
+        }
+    }
+    // end{hamadajuku}
 
     Print_Advanced_Data advanced(PrintRangeAdv::All, defaultScaleAdv);
     ScopedMem<DLGTEMPLATE> dlgTemplate; // needed for RTL languages
@@ -975,6 +1008,18 @@ static PaperSizeDesc gPaperSizes[] = {
         5.82f, 5.85f,
         PaperFormat::A6,
     },
+    // begin{hamadajuku}
+    {
+        7.16f, 7.18f,
+        10.11f, 10.13f,
+        PaperFormat::B5,
+    },
+    {
+        10.11f, 10.13f,
+        14.32f, 14.34f,
+        PaperFormat::B4,
+    },
+    // end{hamadajuku}
     // common US/ANSI formats (imperial)
     {
         8.49f, 8.51f,
@@ -1033,6 +1078,12 @@ static short GetPaperSize(EngineBase* engine) {
             return DMPAPER_A5;
         case PaperFormat::A6:
             return DMPAPER_A6;
+        // begin{hamadajuku}
+        case PaperFormat::B5:
+            return DMPAPER_B5;
+        case PaperFormat::B4:
+            return DMPAPER_B4;
+        // end{hamadajuku}
         case PaperFormat::Letter:
             return DMPAPER_LETTER;
         case PaperFormat::Legal:

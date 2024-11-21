@@ -177,9 +177,15 @@ ACCEL gBuiltInAccelerators[] = {
     {FSHIFT | FCONTROL | FVIRTKEY, VK_F3, CmdFindPrevSel},
     {FCONTROL | FVIRTKEY, VK_F4, CmdClose},
     {FVIRTKEY, VK_F6, CmdMoveFrameFocus},
-    {FVIRTKEY, VK_F8, CmdToggleToolbar},
+    // begin{hamadajuku}
+    //{FVIRTKEY, VK_F8, CmdToggleToolbar},
+    {FVIRTKEY, VK_F8, CmdOpenWithAcrobat},
+    // end{hamadajuku}
     {FVIRTKEY, VK_F9, CmdToggleMenuBar},
-    {FCONTROL | FVIRTKEY, 'L', CmdTogglePresentationMode},
+    // begin{hamadajuku}
+    //{FCONTROL | FVIRTKEY, 'L', CmdTogglePresentationMode},
+    {FCONTROL | FVIRTKEY, 'L', CmdShowInFolder},
+    // end{hamadajuku}
     {FVIRTKEY, VK_F5, CmdTogglePresentationMode},
     {FSHIFT | FVIRTKEY, VK_F11, CmdTogglePresentationMode},
     {FSHIFT | FCONTROL | FVIRTKEY, 'L', CmdToggleFullscreen},
