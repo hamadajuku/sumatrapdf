@@ -9,6 +9,9 @@
 #define CURR_VERSION_COMMA 3,6,0
 #endif
 
+// 浜田塾バージョン
+#define VER_QUALIFIER -hamadajuku-1.0.1
+
 // this is sth. like "3.5"
 #define CURR_VERSION_MAJOR_STRA QM(CURR_VERSION)
 
